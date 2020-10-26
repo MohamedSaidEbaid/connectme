@@ -2,6 +2,7 @@ import 'dart:math';
 
 import 'package:connect_me/widgets/table_item.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 class HomePage extends StatefulWidget {
   @override
@@ -11,47 +12,53 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   bool willAcceptStream;
 
-  double angle1 = 0;
+  double angle1 = pi / 2;
   double angle2 = 0;
   double angle3 = 0;
-  double angle4 = 0;
+  double angle4 = pi;
   double angle5 = 0;
-  double angle6 = 0;
+  double angle6 = pi * 3 / 2;
   double angle7 = 0;
   double angle8 = 0;
   double angle9 = 0;
 
-  double angle1F = pi;
-  double angle2F = pi / 2;
-  double angle3F = pi;
-  double angle4F = pi;
-  double angle5F = pi * 3 / 2;
+  double angle1F = 0;
+  double angle2F = 0;
+  double angle3F = 0;
+  double angle4F = 0;
+  double angle5F = 0;
   double angle6F = 0;
   double angle7F = 0;
   double angle8F = 0;
   double angle9F = 0;
 
-  String a1;
-  String a2 = 'G21';
-  String a3;
+  String a1 = 'G7';
+  String a2;
+  String a3 = 'G12';
   String a4;
-  String a5 = 'Y21';
+  String a5 = 'Y11';
   String a6;
-  String a7;
+  String a7 = 'G16';
   String a8;
   String a9;
+  String a10;
+  String a11;
+  String a12;
+  String a13;
+  String a14;
 
   bool checkTrue() {
-    if (angle1 == angle1F &&
-        angle2 == angle2F &&
-        angle3 == angle3F &&
-        angle4 == angle4F &&
-        angle5 == angle5F &&
-        angle6 == angle6F &&
-        angle7 == angle7F &&
-        angle8 == angle8F) {
-      return true;
+    if (a7 == 'G7' && a10 == 'Y11' && a11 == 'G12' && a14 == 'G16') {
+      if (angle1 == angle1F &&
+          angle2 == angle2F &&
+          angle3 == angle3F &&
+          angle4 == angle4F &&
+          angle5 == angle5F &&
+          angle6 == angle6F) {
+        return true;
+      }
     }
+
     return false;
   }
 
@@ -65,136 +72,58 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
+          backgroundColor: Colors.black,
+          centerTitle: true,
           title: Text('Connect Me'),
         ),
-        body: Padding(
-          padding: const EdgeInsets.all(5.0),
-          child: GridView.count(
-            crossAxisCount: 4,
-            childAspectRatio: 1.0,
-            padding: const EdgeInsets.all(4.0),
-            mainAxisSpacing: 1.0,
-            crossAxisSpacing: 1.0,
-            children: <Widget>[
-              GestureDetector(
-                  onTap: () {
-                    setState(() {
-                      if (angle1 == pi * 3 / 2) {
-                        angle1 = 0;
-                      } else {
-                        angle1 += pi / 2;
-                      }
-                    });
-                    if (checkTrue()) {
-                      showAlertDialog(context);
-                    }
-                  },
-                  child: GridTile(
-                      child: TableItem(
-                    angle: angle1,
-                    url: 'items/capture1.png',
-                  ))),
-              GestureDetector(
-                  onTap: () {
-                    setState(() {
-                      if (angle2 == pi * 3 / 2) {
-                        angle2 = 0;
-                      } else {
-                        angle2 += pi / 2;
-                      }
+        body: Container(
+          decoration: BoxDecoration(
+              image: DecorationImage(
+                  image: AssetImage('items/g7.png'), fit: BoxFit.cover)),
+          child: Padding(
+            padding: const EdgeInsets.all(5.0),
+            child: GridView.count(
+              crossAxisCount: 4,
+              childAspectRatio: 1.0,
+              padding: const EdgeInsets.all(4.0),
+              mainAxisSpacing: 0,
+              crossAxisSpacing: 0,
+              children: <Widget>[
+                _buildMyDragTarget(a1, 'a1'),
+                _buildMyDragTarget(a2, 'a2'),
+                _buildMyDragTarget(a3, 'a3'),
+                _buildMyDragTarget(a4, 'a4'),
+                _buildMyDragTarget(a5, 'a5'),
+                _buildMyDragTarget(a6, 'a6'),
+                _buildMyDragTarget(a7, 'a7'),
+                GridTile(child: TableItem(angle: angle2, url: 'items/ic1.png')),
+                _buildMyDragTarget(a8, 'a8'),
+                _buildMyDragTarget(a9, 'a9'),
+                _buildMyDragTarget(a10, 'a10'),
+                _buildMyDragTarget(a11, 'a11'),
+                _buildMyDragTarget(a12, 'a12'),
+                _buildMyDragTarget(a13, 'a13'),
+                GestureDetector(
+                    onTap: () {
+                      setState(() {
+                        if (angle5 == pi * 3 / 2) {
+                          angle5 = 0;
+                        } else {
+                          angle5 += pi / 2;
+                        }
+                      });
                       if (checkTrue()) {
                         showAlertDialog(context);
                       }
-                    });
-                  },
-                  child: GridTile(
-                      child: TableItem(
-                    angle: angle2,
-                    url: 'items/capture0.png',
-                  ))),
-              _buildMyDragTarget(a1, 'a1'),
-              _buildMyDragTarget(a2, 'a2'),
-              GestureDetector(
-                  onTap: () {
-                    setState(() {
-                      if (angle3 == pi * 3 / 2) {
-                        angle3 = 0;
-                      } else {
-                        angle3 += pi / 2;
-                      }
-                    });
-                    if (checkTrue()) {
-                      showAlertDialog(context);
-                    }
-                  },
-                  child: GridTile(
-                      child:
-                          TableItem(angle: angle3, url: 'items/capture4.png'))),
-              GridTile(child: TableItem(angle: pi, url: 'items/capture6.png')),
-              _buildMyDragTarget(a3, 'a3'),
-              _buildMyDragTarget(a4, 'a4'),
-              GestureDetector(
-                  onTap: () {
-                    setState(() {
-                      if (angle4 == pi * 3 / 2) {
-                        angle4 = 0;
-                      } else {
-                        angle4 += pi / 2;
-                      }
-                    });
-                    if (checkTrue()) {
-                      showAlertDialog(context);
-                    }
-                  },
-                  child: GridTile(
-                      child: TableItem(
-                    angle: angle4,
-                    url: 'items/capture1.png',
-                  ))),
-              _buildMyDragTarget(a5, 'a5'),
-              GestureDetector(
-                  onTap: () {
-                    setState(() {
-                      if (angle6 == pi * 3 / 2) {
-                        angle6 = 0;
-                      } else {
-                        angle6 += pi / 2;
-                      }
-                    });
-                    if (checkTrue()) {
-                      showAlertDialog(context);
-                    }
-                  },
-                  child: GridTile(
-                      child: TableItem(
-                    angle: angle6,
-                    url: 'items/capture4.png',
-                  ))),
-              _buildMyDragTarget(a6, 'a6'),
-              _buildMyDragTarget(a7, 'a7'),
-              _buildMyDragTarget(a8, 'a8'),
-              GestureDetector(
-                  onTap: () {
-                    print(
-                        'a1 $angle1 $angle1F --- a2 $angle2  $angle2F--- 13$angle3  $angle3F ----14$angle4 $angle4F--- 15$angle5 $angle5F--- 16$angle6 $angle6F--- $angle7 $angle7F--- $angle8 $angle8F');
-                    setState(() {
-                      if (angle8 == pi * 3 / 2) {
-                        angle8 = 0;
-                      } else {
-                        angle8 += pi / 2;
-                      }
-                    });
-                    if (checkTrue()) {
-                      showAlertDialog(context);
-                    }
-                  },
-                  child: GridTile(
-                      child: TableItem(
-                    angle: angle8,
-                    url: 'items/capture1.png',
-                  ))),
-              _buildMyDragTarget(a9, 'a9'),
-            ],
+                    },
+                    child: GridTile(
+                        child: TableItem(
+                      angle: angle5,
+                      url: 'items/ic5.png',
+                    ))),
+                _buildMyDragTarget(a14, 'a14'),
+              ],
+            ),
           ),
         ));
   }
@@ -202,32 +131,63 @@ class _HomePageState extends State<HomePage> {
   Widget _buildMyDragTarget(String aState, String s) {
     return DragTarget<String>(
       builder: (BuildContext context, List<String> incoming, List rejected) {
-        if (aState == 'G21') {
+        if (aState == 'Y11') {
           return Draggable(
-            data: 'G21',
-            child: GridTile(
-                child: TableItem(angle: pi * 3 / 2, url: 'items/capture7.png')),
-            feedback: GridTile(
-                child: TableItem(angle: pi * 3 / 2, url: 'items/capture7.png')),
+            data: 'Y11',
+            child:
+                GridTile(child: TableItem(angle: angle3, url: 'items/ic6.png')),
+            feedback:
+                GridTile(child: TableItem(angle: angle3, url: 'items/ic6.png')),
             childWhenDragging: GridTile(
                 child: TableItem(
                     angle: 0,
                     url:
-                        'items/capture5.png')), // <-- so it looks like the original view is beeing dragged
+                        'items/g7.png')), // <-- so it looks like the original view is beeing dragged
             onDraggableCanceled: (v, f) => setState(
               () {},
             ),
           );
-        } else if (aState == 'Y21') {
+        } else if (aState == 'G7') {
           return Draggable(
-            data: 'Y21',
+            data: 'G7',
+            child: GestureDetector(
+              onTap: () {
+                setState(() {
+                  if (angle1 == pi * 3 / 2) {
+                    angle1 = 0;
+                  } else {
+                    angle1 += pi / 2;
+                  }
+                });
+                if (checkTrue()) {
+                  showAlertDialog(context);
+                }
+              },
+              child: GridTile(
+                  child: TableItem(angle: angle1, url: 'items/ic2.png')),
+            ),
+
+            feedback:
+                GridTile(child: TableItem(angle: angle1, url: 'items/ic2.png')),
+            childWhenDragging: GridTile(
+                child: TableItem(
+                    angle: 0,
+                    url:
+                        'items/g7.png')), // <-- so it looks like the original view is beeing dragged
+            onDraggableCanceled: (v, f) => setState(
+              () {},
+            ),
+          );
+        } else if (aState == 'G12') {
+          return Draggable(
+            data: 'G12',
             child: GestureDetector(
                 onTap: () {
                   setState(() {
-                    if (angle5 == pi * 3 / 2) {
-                      angle5 = 0;
+                    if (angle4 == pi * 3 / 2) {
+                      angle4 = 0;
                     } else {
-                      angle5 += pi / 2;
+                      angle4 += pi / 2;
                     }
                   });
                   if (checkTrue()) {
@@ -235,22 +195,54 @@ class _HomePageState extends State<HomePage> {
                   }
                 },
                 child: GridTile(
-                    child:
-                        TableItem(angle: angle5, url: 'items/capture9.png'))),
-            feedback: GridTile(
-                child: TableItem(angle: angle5, url: 'items/capture9.png')),
+                  child: GridTile(
+                      child: TableItem(angle: angle4, url: 'items/ic4.png')),
+                )),
+
+            feedback:
+                GridTile(child: TableItem(angle: angle4, url: 'items/ic4.png')),
             childWhenDragging: GridTile(
                 child: TableItem(
-                    angle: angle5,
+                    angle: 0,
                     url:
-                        'items/capture5.png')), // <-- so it looks like the original view is beeing dragged
+                        'items/g7.png')), // <-- so it looks like the original view is beeing dragged
+            onDraggableCanceled: (v, f) => setState(
+              () {},
+            ),
+          );
+        } else if (aState == 'G16') {
+          return Draggable(
+            data: 'G16',
+            child: GestureDetector(
+              onTap: () {
+                setState(() {
+                  if (angle6 == pi * 3 / 2) {
+                    angle6 = 0;
+                  } else {
+                    angle6 += pi / 2;
+                  }
+                });
+                if (checkTrue()) {
+                  showAlertDialog(context);
+                }
+              },
+              child: GridTile(
+                  child: TableItem(angle: angle6, url: 'items/ic3.png')),
+            ),
+
+            feedback:
+                GridTile(child: TableItem(angle: angle6, url: 'items/ic3.png')),
+            childWhenDragging: GridTile(
+                child: TableItem(
+                    angle: 0,
+                    url:
+                        'items/g7.png')), // <-- so it looks like the original view is beeing dragged
             onDraggableCanceled: (v, f) => setState(
               () {},
             ),
           );
         } else {
-          return GridTile(
-              child: TableItem(angle: 0, url: 'items/capture5.png'));
+          return GridTile(child: TableItem(angle: 0, url: 'items/g7.png'));
         }
       },
       onAccept: (data) {
@@ -274,6 +266,18 @@ class _HomePageState extends State<HomePage> {
                 a7 = null;
               } else if (a1 == a8) {
                 a8 = null;
+              } else if (a1 == a9) {
+                a9 = null;
+              } else if (a1 == a10) {
+                a10 = null;
+              } else if (a1 == a11) {
+                a11 = null;
+              } else if (a1 == a12) {
+                a12 = null;
+              } else if (a1 == a13) {
+                a13 = null;
+              } else if (a1 == a14) {
+                a14 = null;
               }
             });
           }
@@ -295,6 +299,18 @@ class _HomePageState extends State<HomePage> {
                 a7 = null;
               } else if (a2 == a8) {
                 a8 = null;
+              } else if (a2 == a9) {
+                a9 = null;
+              } else if (a2 == a10) {
+                a10 = null;
+              } else if (a2 == a11) {
+                a11 = null;
+              } else if (a2 == a12) {
+                a12 = null;
+              } else if (a2 == a13) {
+                a13 = null;
+              } else if (a2 == a14) {
+                a14 = null;
               }
             });
           }
@@ -316,6 +332,18 @@ class _HomePageState extends State<HomePage> {
                 a7 = null;
               } else if (a3 == a8) {
                 a8 = null;
+              } else if (a3 == a9) {
+                a9 = null;
+              } else if (a3 == a10) {
+                a10 = null;
+              } else if (a3 == a11) {
+                a11 = null;
+              } else if (a3 == a12) {
+                a12 = null;
+              } else if (a3 == a13) {
+                a13 = null;
+              } else if (a3 == a14) {
+                a14 = null;
               }
             });
           }
@@ -337,6 +365,18 @@ class _HomePageState extends State<HomePage> {
                 a7 = null;
               } else if (a4 == a8) {
                 a8 = null;
+              } else if (a4 == a9) {
+                a9 = null;
+              } else if (a4 == a10) {
+                a10 = null;
+              } else if (a4 == a11) {
+                a11 = null;
+              } else if (a4 == a12) {
+                a12 = null;
+              } else if (a4 == a13) {
+                a13 = null;
+              } else if (a4 == a14) {
+                a14 = null;
               }
             });
           }
@@ -358,6 +398,18 @@ class _HomePageState extends State<HomePage> {
                 a7 = null;
               } else if (a5 == a8) {
                 a8 = null;
+              } else if (a5 == a9) {
+                a9 = null;
+              } else if (a5 == a10) {
+                a10 = null;
+              } else if (a5 == a11) {
+                a11 = null;
+              } else if (a5 == a12) {
+                a12 = null;
+              } else if (a5 == a13) {
+                a13 = null;
+              } else if (a5 == a14) {
+                a14 = null;
               }
             });
           }
@@ -379,6 +431,18 @@ class _HomePageState extends State<HomePage> {
                 a7 = null;
               } else if (a6 == a8) {
                 a8 = null;
+              } else if (a6 == a9) {
+                a9 = null;
+              } else if (a6 == a10) {
+                a10 = null;
+              } else if (a6 == a11) {
+                a11 = null;
+              } else if (a6 == a12) {
+                a12 = null;
+              } else if (a6 == a13) {
+                a13 = null;
+              } else if (a6 == a14) {
+                a14 = null;
               }
             });
           }
@@ -400,6 +464,18 @@ class _HomePageState extends State<HomePage> {
                 a8 = null;
               } else if (a7 == a8) {
                 a8 = null;
+              } else if (a7 == a9) {
+                a9 = null;
+              } else if (a7 == a10) {
+                a10 = null;
+              } else if (a7 == a11) {
+                a11 = null;
+              } else if (a7 == a12) {
+                a12 = null;
+              } else if (a7 == a13) {
+                a13 = null;
+              } else if (a7 == a14) {
+                a14 = null;
               }
             });
           }
@@ -421,6 +497,222 @@ class _HomePageState extends State<HomePage> {
                 a7 = null;
               } else if (a1 == a8) {
                 a1 = null;
+              } else if (a8 == a9) {
+                a9 = null;
+              } else if (a8 == a10) {
+                a10 = null;
+              } else if (a8 == a11) {
+                a11 = null;
+              } else if (a8 == a12) {
+                a12 = null;
+              } else if (a8 == a13) {
+                a13 = null;
+              } else if (a8 == a14) {
+                a14 = null;
+              }
+            });
+          }
+        } else if (s == 'a9') {
+          if (a9 == null) {
+            setState(() {
+              a9 = data;
+
+              if (a9 == a2) {
+                a2 = null;
+              } else if (a9 == a3) {
+                a3 = null;
+              } else if (a9 == a4) {
+                a4 = null;
+              } else if (a9 == a5) {
+                a5 = null;
+              } else if (a9 == a6) {
+                a6 = null;
+              } else if (a9 == a7) {
+                a7 = null;
+              } else if (a9 == a8) {
+                a8 = null;
+              } else if (a1 == a9) {
+                a1 = null;
+              } else if (a9 == a10) {
+                a10 = null;
+              } else if (a9 == a11) {
+                a11 = null;
+              } else if (a9 == a12) {
+                a12 = null;
+              } else if (a9 == a13) {
+                a13 = null;
+              } else if (a9 == a14) {
+                a14 = null;
+              }
+            });
+          }
+        } else if (s == 'a10') {
+          if (a10 == null) {
+            setState(() {
+              a10 = data;
+
+              if (a10 == a2) {
+                a2 = null;
+              } else if (a10 == a3) {
+                a3 = null;
+              } else if (a10 == a4) {
+                a4 = null;
+              } else if (a10 == a5) {
+                a5 = null;
+              } else if (a10 == a6) {
+                a6 = null;
+              } else if (a10 == a7) {
+                a7 = null;
+              } else if (a10 == a8) {
+                a8 = null;
+              } else if (a10 == a9) {
+                a9 = null;
+              } else if (a1 == a10) {
+                a1 = null;
+              } else if (a10 == a11) {
+                a11 = null;
+              } else if (a10 == a12) {
+                a12 = null;
+              } else if (a10 == a13) {
+                a13 = null;
+              } else if (a10 == a14) {
+                a14 = null;
+              }
+            });
+          }
+        } else if (s == 'a11') {
+          if (a11 == null) {
+            setState(() {
+              a11 = data;
+
+              if (a11 == a2) {
+                a2 = null;
+              } else if (a11 == a3) {
+                a3 = null;
+              } else if (a11 == a4) {
+                a4 = null;
+              } else if (a11 == a5) {
+                a5 = null;
+              } else if (a11 == a6) {
+                a6 = null;
+              } else if (a11 == a7) {
+                a7 = null;
+              } else if (a11 == a8) {
+                a8 = null;
+              } else if (a11 == a9) {
+                a9 = null;
+              } else if (a11 == a10) {
+                a10 = null;
+              } else if (a1 == a11) {
+                a1 = null;
+              } else if (a11 == a12) {
+                a12 = null;
+              } else if (a11 == a13) {
+                a13 = null;
+              } else if (a11 == a14) {
+                a14 = null;
+              }
+            });
+          }
+        } else if (s == 'a12') {
+          if (a12 == null) {
+            setState(() {
+              a12 = data;
+
+              if (a12 == a2) {
+                a2 = null;
+              } else if (a12 == a3) {
+                a3 = null;
+              } else if (a12 == a4) {
+                a4 = null;
+              } else if (a12 == a5) {
+                a5 = null;
+              } else if (a12 == a6) {
+                a6 = null;
+              } else if (a12 == a7) {
+                a7 = null;
+              } else if (a12 == a8) {
+                a8 = null;
+              } else if (a12 == a9) {
+                a9 = null;
+              } else if (a12 == a10) {
+                a10 = null;
+              } else if (a12 == a11) {
+                a11 = null;
+              } else if (a1 == a12) {
+                a1 = null;
+              } else if (a12 == a13) {
+                a13 = null;
+              } else if (a12 == a14) {
+                a14 = null;
+              }
+            });
+          }
+        } else if (s == 'a13') {
+          if (a13 == null) {
+            setState(() {
+              a13 = data;
+
+              if (a13 == a2) {
+                a2 = null;
+              } else if (a13 == a3) {
+                a3 = null;
+              } else if (a13 == a4) {
+                a4 = null;
+              } else if (a13 == a5) {
+                a5 = null;
+              } else if (a13 == a6) {
+                a6 = null;
+              } else if (a13 == a7) {
+                a7 = null;
+              } else if (a13 == a8) {
+                a8 = null;
+              } else if (a13 == a9) {
+                a9 = null;
+              } else if (a13 == a10) {
+                a10 = null;
+              } else if (a13 == a11) {
+                a11 = null;
+              } else if (a13 == a12) {
+                a12 = null;
+              } else if (a1 == a13) {
+                a1 = null;
+              } else if (a13 == a14) {
+                a14 = null;
+              }
+            });
+          }
+        } else if (s == 'a14') {
+          if (a14 == null) {
+            setState(() {
+              a14 = data;
+
+              if (a14 == a2) {
+                a2 = null;
+              } else if (a14 == a3) {
+                a3 = null;
+              } else if (a14 == a4) {
+                a4 = null;
+              } else if (a14 == a5) {
+                a5 = null;
+              } else if (a14 == a6) {
+                a6 = null;
+              } else if (a14 == a7) {
+                a7 = null;
+              } else if (a14 == a8) {
+                a8 = null;
+              } else if (a14 == a9) {
+                a9 = null;
+              } else if (a14 == a10) {
+                a10 = null;
+              } else if (a14 == a11) {
+                a11 = null;
+              } else if (a14 == a12) {
+                a12 = null;
+              } else if (a14 == a13) {
+                a13 = null;
+              } else if (a1 == a14) {
+                a1 = null;
               }
             });
           }
@@ -438,7 +730,7 @@ class _HomePageState extends State<HomePage> {
       builder: (BuildContext context, List<String> incoming, List rejected) {
         if (willAcceptStream == true) {
           return Draggable(
-            data: 'G21',
+            data: 'Y21',
             child: GestureDetector(
                 onTap: () {
                   setState(() {
@@ -450,10 +742,9 @@ class _HomePageState extends State<HomePage> {
                   });
                 },
                 child: GridTile(
-                    child:
-                        TableItem(angle: angle5, url: 'items/capture7.png'))),
-            feedback: GridTile(
-                child: TableItem(angle: angle3, url: 'items/capture5.png')),
+                    child: TableItem(angle: angle5, url: 'items/ic6.png'))),
+            feedback:
+                GridTile(child: TableItem(angle: angle3, url: 'items/g7.png')),
             childWhenDragging: GestureDetector(onTap: () {
               setState(() {
                 if (angle2 == pi * 3 / 2) {
@@ -470,12 +761,11 @@ class _HomePageState extends State<HomePage> {
             ),
           );
         } else {
-          return GridTile(
-              child: TableItem(angle: angle3, url: 'items/capture5.png'));
+          return GridTile(child: TableItem(angle: angle3, url: 'items/g7.png'));
         }
       },
       onAccept: (data) {
-        if (data == 'G21') {
+        if (data == 'Y21') {
           setState(() {
             willAcceptStream = true;
           });
